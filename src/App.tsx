@@ -12,13 +12,16 @@ import BlogPost from "./pages/blog/BlogPost";
 
 const queryClient = new QueryClient();
 
+// Create a single instance of the helmet context
+const helmetContext = {};
+
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+  <BrowserRouter>
+    <HelmetProvider context={helmetContext}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/blog" element={<BlogList />} />
@@ -26,10 +29,10 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
     </HelmetProvider>
-  </QueryClientProvider>
+  </BrowserRouter>
 );
 
 export default App;
